@@ -1,8 +1,8 @@
 -- Use this file to define your SQL tables
 -- The SQL in this file will be executed when you run `npm run setup-db`
-DROP TABLE IF EXISTS authors;
-DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS correlation;
+DROP TABLE IF EXISTS books;
+DROP TABLE IF EXISTS authors;
 
 
 CREATE TABLE authors (
@@ -27,13 +27,6 @@ CREATE TABLE books (
     released INT NOT NULL
 );
 
-CREATE TABLE correlation (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    author_id INT,
-    book_id INT,
-    FOREIGN KEY (author_id) REFERENCES authors(id),
-    FOREIGN KEY (book_id) REFERENCES books(id)
-);
 
 INSERT INTO
     books (title, released)
@@ -45,6 +38,14 @@ VALUES
     ('The Fellowship of the Ring', 1954),
     ('Fahrenheit 451', 1953),
     ('Nineteen Eighty-Four', 1949);
+
+CREATE TABLE correlation (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    author_id INT,
+    book_id INT,
+    FOREIGN KEY (author_id) REFERENCES authors(id),
+    FOREIGN KEY (book_id) REFERENCES books(id)
+);
 
 INSERT INTO correlation (
     author_id, book_id
